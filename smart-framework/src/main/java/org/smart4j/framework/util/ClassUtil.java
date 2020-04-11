@@ -1,6 +1,5 @@
 package org.smart4j.framework.util;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,7 +117,7 @@ public final class ClassUtil
             if (file.isFile())
             {
                 String className = fileName.substring(0, fileName.lastIndexOf("."));
-                if (StringUtils.isNotEmpty(packageName) && StringUtils.isNotBlank(packageName))
+                if (StringUtil.isNotEmpty(packageName))
                 {
                     className = packageName + "." + className;
                 }
@@ -126,12 +125,12 @@ public final class ClassUtil
             } else
             {
                 String subPackagePath = fileName;
-                if (StringUtils.isNotEmpty(packagePath) && StringUtils.isNotBlank("packagePath"))
+                if (StringUtil.isNotEmpty(packagePath))
                 {
                     subPackagePath = packagePath + "/" + subPackagePath;
                 }
                 String subPackageName = fileName;
-                if (StringUtils.isNotEmpty(packageName) && StringUtils.isNotBlank(packageName))
+                if (StringUtil.isNotEmpty(packageName))
                 {
                     subPackageName = packageName + "." + subPackageName;
                 }
