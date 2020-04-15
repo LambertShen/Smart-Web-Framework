@@ -1,5 +1,6 @@
 package org.smart4j.framework.helper;
 
+import org.smart4j.framework.annotation.Aspect;
 import org.smart4j.framework.annotation.Controller;
 import org.smart4j.framework.annotation.Service;
 import org.smart4j.framework.util.ClassUtil;
@@ -41,7 +42,7 @@ public final class ClassHelper
      */
     public static Set<Class<?>> getServiceClassSet()
     {
-       return getClassSet(Service.class);
+       return getClassSetByAnnotation(Service.class);
     }
 
     /**
@@ -49,7 +50,15 @@ public final class ClassHelper
      */
     public static Set<Class<?>> getControllerClassSet()
     {
-        return getClassSet(Controller.class);
+        return getClassSetByAnnotation(Controller.class);
+    }
+
+    /**
+     *  获取应用包下所有 Aspect 类
+     */
+    public static Set<Class<?>> getAspectClassSet()
+    {
+        return getClassSetByAnnotation(Aspect.class);
     }
 
     /**
@@ -63,7 +72,25 @@ public final class ClassHelper
         return beanClassSet;
     }
 
-    private static Set<Class<?>> getClassSet(Class<? extends Annotation> annotationClass)
+    /**
+     *  获取应用包名下某父类(或接口)的所有子类(或实现类)
+     */
+    public static Set<Class<?>> getClassSetBySuper(Class<?> superClass)
+    {
+        Set<Class<?>> classSet = new HashSet<>();
+        for(Class<?> cls : CLASS_SET)
+        {
+            if(superClass.isAssignableFrom(cls) && !superClass.equals(cls))
+            {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
+    }
+
+
+
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass)
     {
         Set<Class<?>> classSet = new HashSet<>();
         for(Class<?> cls : CLASS_SET)
